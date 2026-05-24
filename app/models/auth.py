@@ -1,0 +1,1 @@
+# Backend database model removed - using simple frontend only

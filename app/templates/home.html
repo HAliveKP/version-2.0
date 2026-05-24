@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <p class="eyebrow">Welcome to Sahayogi</p>
+        <h1>Your platform for delivery excellence</h1>
+        <p>Experience the future of project management and team collaboration.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>Featured Products</h2>
+        <div class="card-grid card-grid-4">
+            {% for product in products %}
+            <article class="card">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p style="font-weight: 600; color: var(--brand); margin-top: 1rem;">{{ product.price }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
