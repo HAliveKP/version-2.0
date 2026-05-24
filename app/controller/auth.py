@@ -3,7 +3,7 @@ from app.controller.basecontroller import BaseController
 from app.models.users import User
 
 
-class AuthController:
+class AuthController(BaseController):
     def login(self):
         if request.method == "POST":
             flash("Login submitted - no backend database.", "info")
