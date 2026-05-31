@@ -1,0 +1,8 @@
+{%extends "base.html"%}
+{% block title %} homepage{%endblock%}
+{% block contents %}
+<h1>this is a homepage</h1>
+{% for pro in product%}
+<li>{{pro.name}} {{pro.price}} {{pro.manufacture}}</li>
+{%endblock%}
+
