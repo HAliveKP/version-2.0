@@ -16,8 +16,5 @@ class ProductRoutes:
         self.bp.route("/all", methods=["GET"])(
             login_required(self.controller.getProduct)
         )
-        self.bp.route("/get/<int:id>", methods=["GET"])(
-            login_required(self.controller.getProduct)
-        )
 
         return self.bp
