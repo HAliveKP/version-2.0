@@ -23,7 +23,7 @@
                         {{user.email}}
                     </td>
                     <td>
-                        <a href="">edit</a>
+                        <a href="{{ url_for('auth.editUsers', user_id=user.id) }}">edit</a>
                         <a href="">delete</a>
                     </td>
                 </tr>
