@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block maincontent %}
+<div class="container">
+    <h1>Dashboard</h1>
+    
+    <div class="user-info">
+        <p>Welcome, <strong>{{ session.get('user_name', 'User') }}</strong></p>
+        <p>Role: <strong>{{ session.get('role', 'user') }}</strong></p>
+    </div>
+
+    {% if session.get('role') == 'admin' %}
+    <section class="admin-panel">
+        <h2>Admin Panel - User Management</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in total_users %}
+                {% if user.role != 'admin' %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <a href="#">Edit</a> | 
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="{{ url_for('auth.register') }}">Register New User</a>
+    </section>
+    {% else %}
+    <section class="user-panel">
+        <h2>User Profile</h2>
+        <p>This is your user dashboard. You have regular user access.</p>
+    </section>
+    {% endif %}
+
+    <hr>
+    <a href="{{ url_for('auth.logout') }}" style="color: red; font-weight: bold;">Logout</a>
+</div>
+{% endblock %}

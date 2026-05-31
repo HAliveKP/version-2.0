@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock%} - My website</title>
+    {% block style %} {% endblock%}
+
+
+</head>
+
+<body>
+    <nav style="background-color: #333; padding: 10px; color: white;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <a href="{{ url_for('auth.home') }}" style="color: white; text-decoration: none; margin-right: 20px;">Home</a>
+            </div>
+            <div>
+                {% if session.get('user_id') %}
+                    <span>Welcome, {{ session.get('user_name', 'User') }} ({{ session.get('role', 'user') }})</span>
+                    {% if session.get('role') == 'admin' %}
+                        <a href="{{ url_for('auth.dashboard') }}" style="color: white; text-decoration: none; margin-left: 20px;">Admin Panel</a>
+                    {% else %}
+                        <a href="{{ url_for('auth.dashboard') }}" style="color: white; text-decoration: none; margin-left: 20px;">Dashboard</a>
+                    {% endif %}
+                    <a href="{{ url_for('auth.logout') }}" style="color: white; text-decoration: none; margin-left: 20px;">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" style="color: white; text-decoration: none; margin-left: 20px;">Login</a>
+                    <a href="{{ url_for('auth.register') }}" style="color: white; text-decoration: none; margin-left: 20px;">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}" style="padding: 10px; margin: 10px; border: 1px solid #ccc;">{{ message }}</div>
+    {% endfor %}
+    {% endwith %}
+    {% block maincontent %} {% endblock%}
+    <footer style="text-align: center; padding: 20px; border-top: 1px solid #ccc;">
+        <p>this is a footer</p>
+    </footer>
+
+</body>
+
+</html>
