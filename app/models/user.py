@@ -169,3 +169,10 @@ class User(BaseModel):
     def __repr__(self):
         """Developer-friendly representation for debugging."""
         return f"<User email={self.email}>"
+
+    def find_all_Users(self):
+        """Return a list of all users in the database."""
+        db = Database()
+        results = db.fetch_all("SELECT * FROM users")
+        db.close()
+        return [User.from_db(row) for row in results]
