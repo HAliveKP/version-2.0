@@ -1,6 +1,6 @@
 from flask import Blueprint
 from app.controllers.auth import AuthController
-from app.auth import login_required
+from app.auth import admin_required, login_required
 
 class AuthRoutes:
     def __init__(self):
@@ -19,6 +19,9 @@ class AuthRoutes:
         )
         self.bp.route("/logout", methods = ["GET", "POST"])(
             self.controller.logout
+        )
+        self.bp.route("/edit/<int:user_id>", methods = ["GET", "POST"])(
+            admin_required(self.controller.editUsers)
         )
         return self.bp
     

@@ -89,6 +89,37 @@ class AuthController(BaseController):
             "logged out successfully.", "success", "auth.login"
         )
     
-    drf editUsers
+    def editUsers(self, user_id):
+        user_data = self.user_model.find_by("id", user_id)
+        user_onj = User.from_db(user_data)
+        if request.method == "POST":
+            name, email = self.get_form_data("name", "email")
+            password = request.form.get("password", "")
+            
+            role = request.form.get("role", "user")
+
+            if not name or not email:
+                flash("Name and email are required.", "danger")
+                return render_template("edit_user.html", user=user_onj)
+
+            if len(name) > 100:
+                flash("Name must be under 100 characters.", "danger")
+                return render_template("edit_user.html", user=user_onj)
+
+            if password and len(password) < 6:
+                flash("Password must be at least 6 characters.", "danger")
+                return render_template("edit_user.html", user=user_onj)
+
+            user_onj.name = name
+            user_onj.email = email
+            user_onj.role = role
+
+            if password:
+                user_onj.password = password
+
+            user_onj.update()
+            return self.flash_and_redirect(
+                "User updated successfully!", "success", "auth.dashboard"
+            )
     
     
