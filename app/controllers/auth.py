@@ -121,5 +121,5 @@ class AuthController(BaseController):
             return self.flash_and_redirect(
                 "User updated successfully!", "success", "auth.dashboard"
             )
-    
+    def 
     
